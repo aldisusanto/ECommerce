@@ -1,0 +1,60 @@
+<div class="main-sidebar">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a href="index.html">Sun</a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="index.html">SUN</a>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-header">KATEGORI</li>
+
+            {% url 'category_list' as category_list %}
+            {% url 'category_create' as category_create %}
+            {% url 'category_update' id as category_update %}
+            <li class="dropdown {% if request.path == category_list %} active {% endif %}{% if request.path == category_create %} active {% endif %} {% if request.path == category_update %} active {% endif %}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Kategori</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{% if request.path == category_list %} active {% endif %} {% if request.path == category_update %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'category_list' %}">Semua Kategori</a></li>
+                    <li class="{% if request.path == category_create %} active {% endif %}"><a class="nav-link"
+                                                                                               href="{% url 'category_create' %}">Tambah Kategori</a></li>
+                </ul>
+            </li>
+            <!--            Sub Category-->
+            {% url 'sub_category_list' as sub_category_list %}
+            {% url 'sub_category_create' as sub_category_create %}
+            {% url 'sub_category_update' id as sub_category_update %}
+            <li class="dropdown {% if request.path == sub_category_list %} active {% endif %}{% if request.path == sub_category_create %} active {% endif %} {% if request.path == sub_category_update %} active {% endif %}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Sub Kategori</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{% if request.path == sub_category_list %} active {% endif %} {% if request.path == sub_category_update %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'sub_category_list' %}">Semua Sub Kategori</a></li>
+                    <li class="{% if request.path == sub_category_create %} active {% endif %}"><a class="nav-link"
+                                                                                                   href="{% url 'sub_category_create' %}">Tambah
+                        Sub Kategori</a></li>
+                </ul>
+            </li>
+            <li class="menu-header">Pengguna</li>
+            <!--                         Pedagang-->
+            {% url 'merchant_user_list' as merchant_user_list %}
+            {% url 'merchant_user_create' as merchant_user_create %}
+            {% url 'merchant_user_update' id as merchant_user_update %}
+            <li class="dropdown {% if request.path == merchant_user_list %} active {% endif %}{% if request.path == merchant_user_create %} active {% endif %} {% if request.path == merchant_user_update %} active {% endif %}">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span> Pedagang</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{% if request.path == merchant_user_list %} active {% endif %} {% if request.path == merchant_user_update %} active {% endif %}">
+                        <a class="nav-link" href="{% url 'merchant_user_list' %}">Semua Pedagang</a></li>
+                    <li class="{% if request.path == sub_category_create %} active {% endif %}"><a class="nav-link"
+                                                                                                   href="{% url 'merchant_user_create' %}">Tambah Pedagang</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+            <a href="{% url 'admin_logout_process' %}" class="btn btn-primary btn-lg btn-block btn-icon-split">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </aside>
+</div>

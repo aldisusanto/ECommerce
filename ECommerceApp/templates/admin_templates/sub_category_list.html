@@ -1,0 +1,54 @@
+{% extends 'admin_templates/base_template.html' %}
+{% block page_title %}
+Admin | Sub Category
+{% endblock page_title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block title_content %}
+Sub Category
+{% endblock title_content %}
+{% block page_content %}
+<div class="row">
+    {% for sub_category in subcategories_list %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <article class="article article-style-b">
+            <div class="article-header ">
+                <div class="article-image" data-background="/media/{{ sub_category.thumbnail }}"
+                     style="background-image: url(&quot;../assets/img/news/img15.jpg&quot;);">
+                </div>
+                <div class="article-badge">
+                    <div class="article-badge-item bg-primary"><i class="fas fa-fire"></i> {{ sub_category.title }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="article-details">
+                <span class="badge badge-primary">{{ sub_category.category_id.title }}</span>
+                <p>{{ sub_category.description }}</p>
+                <p>{{ sub_category.url_slug }}</p>
+                <div class="article-cta">
+                    <label class="custom-switch mt-2" style="float:left; padding-left:0">
+                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                               {% if sub_category.is_active == 1 %}checked{% endif %}>
+                        <span class="custom-switch-indicator"></span>
+                        {% if sub_category.is_active != 1 %}
+                        <span class="custom-switch-description">Not Active</span>
+                        {% endif %}
+                        {% if sub_category.is_active == 1 %}
+                        <span class="custom-switch-description">Active</span>
+                        {% endif %}
+                    </label>
+                    <a href="{% url 'sub_category_update' sub_category.id %}" class="btn btn-warning">Edit</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

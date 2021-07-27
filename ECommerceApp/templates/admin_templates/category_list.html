@@ -1,0 +1,91 @@
+{% extends 'admin_templates/base_template.html' %}
+{% block page_title %}
+Admin | Category
+{% endblock page_title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block title_content %}
+Category
+{% endblock title_content %}
+{% block page_content %}
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <form class="form-inline mr-auto" method="get">
+            <input class="form-control " type="search" placeholder="Cari Kategori" aria-label="Search"
+                   name="filter" value="{{ filter }}" autofocus>
+        </form>
+
+    </div>
+</div>
+<br>
+<div class="row">
+    {% for category in category_list %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <article class="article article-style-b">
+            <div class="article-header">
+                <div class="article-image" data-background="/media/{{ category.thumbnail }}"
+                     style="background-image: url(&quot;../assets/img/news/img15.jpg&quot;);">
+                </div>
+                <div class="article-badge">
+                    <div class="article-badge-item bg-primary"> {{ category.title }}</div>
+                </div>
+            </div>
+            <div class="article-details">
+                <p>{{ category.description }}</p>
+                <p>{{ category.url_slug }}</p>
+                <div class="article-cta">
+                    <label class="custom-switch mt-2" style="float:left; padding-left:0">
+                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                               {% if category.is_active == 1 %}checked{% endif %}>
+                        <span class="custom-switch-indicator"></span>
+                        {% if category.is_active != 1 %}
+                        <span class="custom-switch-description">Not Active</span>
+                        {% endif %}
+                        {% if category.is_active == 1 %}
+                        <span class="custom-switch-description">Active</span>
+                        {% endif %}
+                    </label>
+                    <a href="{% url 'category_update' category.id %}" class="btn btn-warning">Edit</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="col-12 col-md-12 col-lg-12">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link"
+                                         href="{% url 'category_list' %}?filter={{ filter }}&orderby={{ orderby }}&page={{ page_obj.has_previous_number }}">Previous</a>
+                </li>
+                {% else %}
+                <li class="page-item disable"><a class="page-link" href="#">Previous</a></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                <li class="page-item {% if i == page_obj.number %}active{% endif %}">
+                    <a class="page-link"
+                       href="{% url 'category_list' %}?filter={{ filter }}&orderby={{ orderby }}&page={{ i }}">
+                        {{ i }}</a></li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link"
+                                         href="{% url 'category_list' %}?filter={{ filter }}&orderby={{ orderby }}&page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                {% else %}
+                <li class="page-item disable"><a class="page-link" href="#">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

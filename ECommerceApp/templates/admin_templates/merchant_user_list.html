@@ -1,0 +1,56 @@
+{% extends 'admin_templates/base_template.html' %}
+{% load static %}
+{% block page_title %}
+Admin | Merchant User
+{% endblock page_title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block title_content %}
+Merchant User
+{% endblock title_content %}
+{% block page_content %}
+<div class="row">
+    {% for merchant_user in merchant_list %}
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <article class="article article-style-b">
+            <div class="article-header ">
+                <div class="article-image" data-background="{{ merchant_user.profile_pic }}"
+                     style="background-image: url(&quot;../assets/img/news/img15.jpg&quot;);">
+                </div>
+                <div class="article-badge">
+                    <div class="article-badge-item bg-primary"><i class="fas fa-user"></i>
+                        {{ merchant_user.auth_user_id.first_name }} {{ merchant_user.auth_user_id.last_name }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="article-details">
+                <p><i class="fas fa-building"></i> Company Name : {{ merchant_user.company_name }}</p>
+                <p><i class="fas fa-envelope"></i> Email : {{ merchant_user.auth_user_id.email }}</p>
+                <div class="article-cta">
+                    <label class="custom-switch mt-2" style="float:left; padding-left:0">
+                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                               {% if merchant_user.auth_user_id.is_active == 1 %}checked{% endif %}>
+                        <span class="custom-switch-indicator"></span>
+                        {% if merchant_user.auth_user_id.is_active == 0 %}
+                        <span class="custom-switch-description">Not Active</span>
+                        {% endif %}
+                        {% if merchant_user.auth_user_id.is_active == 1 %}
+                        <span class="custom-switch-description">Active</span>
+                        {% endif %}
+
+                    </label>
+                    <a href="{% url 'merchant_user_update' merchant_user.auth_user_id.id %}" class="btn btn-warning">Edit</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock page_content %}
+
+{% block custom_js %}
+{% endblock custom_js %}
